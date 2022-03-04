@@ -2,8 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/section_post"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
     android:paddingStart="@dimen/_10sdp"
     android:paddingTop="@dimen/_10sdp"
     android:paddingEnd="@dimen/_10sdp">
@@ -44,14 +46,14 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:ellipsize="end"
         android:maxLines="1"
-        tools:text="Arya Dharma"
         android:textAlignment="textStart"
         android:textColor="@color/color_body"
         android:textSize="@dimen/_12ssp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/body_post_item" />
+        app:layout_constraintTop_toBottomOf="@+id/body_post_item"
+        tools:text="Arya Dharma" />
 
     <TextView
         android:id="@+id/user_company_post_item"
@@ -59,14 +61,14 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        tools:text="From : Kumparan"
         android:textAlignment="textStart"
         android:textColor="@color/color_label"
         android:textSize="@dimen/_12ssp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username_post_item" />
+        app:layout_constraintTop_toBottomOf="@+id/username_post_item"
+        tools:text="From : Kumparan" />
 
     <View
         android:id="@+id/line_divider"

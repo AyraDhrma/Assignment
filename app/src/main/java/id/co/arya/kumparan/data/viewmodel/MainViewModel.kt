@@ -1,15 +1,19 @@
 package id.co.arya.kumparan.data.viewmodel
 
 import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.co.arya.kumparan.api.ResultApi
+import id.co.arya.kumparan.data.model.PostDetailModel
 import id.co.arya.kumparan.data.model.PostModel
 import id.co.arya.kumparan.data.model.UserModel
 import id.co.arya.kumparan.data.repository.MainRepository
 import id.co.arya.kumparan.databinding.ActivityMainBinding
 import id.co.arya.kumparan.library.adapter.ListPostAdapter
+import id.co.arya.kumparan.ui.post.DetailPostActivity
+import id.co.arya.kumparan.utils.StringUtils
 import kotlinx.coroutines.Dispatchers
 
 class MainViewModel(
@@ -41,9 +45,25 @@ class MainViewModel(
         listUser: UserModel
     ) {
         binding.apply {
+            val adapter = ListPostAdapter(listPost, listUser)
             listPostRecyclerView.hasFixedSize()
             listPostRecyclerView.layoutManager = LinearLayoutManager(mContext)
-            listPostRecyclerView.adapter = ListPostAdapter(listPost, listUser)
+            listPostRecyclerView.adapter = adapter
+            adapter.onSelectedPost(object : ListPostAdapter.SelectedPost {
+                override fun selectedPost(postDetailModel: PostDetailModel, position: Int) {
+                    mContext.startActivity(
+                        Intent(
+                            mContext,
+                            DetailPostActivity::class.java
+                        ).apply {
+                            putExtra(
+                                StringUtils.INTENT_DETAIL_DATA,
+                                postDetailModel
+                            )
+                        }
+                    )
+                }
+            })
         }
     }
 

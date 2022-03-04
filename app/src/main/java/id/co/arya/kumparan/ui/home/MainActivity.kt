@@ -32,10 +32,6 @@ class MainActivity : AppCompatActivity() {
         mainViewModelFactory = MainViewModelFactory()
         mainViewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
 
-    }
-
-    override fun onResume() {
-        super.onResume()
         fetchUser()
         fetchPost()
     }
