@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import id.co.arya.kumparan.data.model.PostModel
+import id.co.arya.kumparan.data.model.UserModel
 import id.co.arya.kumparan.databinding.RvItemsPostBinding
 
-class ListPostAdapter(private val listPostModel: PostModel) :
+class ListPostAdapter(private val listPostModel: PostModel, private val listUser: UserModel) :
     RecyclerView.Adapter<ListPostAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: RvItemsPostBinding) : RecyclerView.ViewHolder(binding.root)
@@ -25,8 +26,15 @@ class ListPostAdapter(private val listPostModel: PostModel) :
         holder.binding.apply {
             titlePostItem.text = listPostModel[position].title
             bodyPostItem.text = listPostModel[position].body
-            usernamePostItem.text = listPostModel[position].userId.toString()
-            userCompanyPostItem.text = listPostModel[position].id.toString()
+
+            listUser.map {
+                if (it.id == listPostModel[position].userId) {
+                    usernamePostItem.text = it.name
+                    userCompanyPostItem.text = it.company.name
+                    return
+                }
+            }
+
         }
     }
 

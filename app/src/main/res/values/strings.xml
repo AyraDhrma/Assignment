@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">Kumparan</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="home">Home</string>
     <string name="check_internet_connection">Check your internet connection</string>
 </resources>
