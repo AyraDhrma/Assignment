@@ -11,24 +11,25 @@
     android:paddingEnd="@dimen/_10sdp">
 
     <TextView
-        android:id="@+id/title_post_item"
+        android:id="@+id/username_comments_item"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:maxLines="1"
         android:textAlignment="textStart"
         android:textColor="@color/color_title"
-        android:textSize="@dimen/_18ssp"
+        android:textSize="@dimen/_15ssp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="ea molestias quasi exercitationem repellat qui ipsa sit aut" />
+        tools:text="Arya Dharma" />
 
     <TextView
-        android:id="@+id/body_post_item"
+        android:id="@+id/body_comments_item"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
         android:ellipsize="end"
         android:justificationMode="inter_word"
         android:maxLines="3"
@@ -37,39 +38,8 @@
         android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_post_item"
+        app:layout_constraintTop_toBottomOf="@+id/username_comments_item"
         tools:text="et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut" />
-
-    <TextView
-        android:id="@+id/username_post_item"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAlignment="textStart"
-        android:textColor="@color/color_body"
-        android:textSize="@dimen/_12ssp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/body_post_item"
-        tools:text="Arya Dharma" />
-
-    <TextView
-        android:id="@+id/user_company_post_item"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAlignment="textStart"
-        android:textColor="@color/color_label"
-        android:textSize="@dimen/_12ssp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username_post_item"
-        tools:text="From : Kumparan" />
 
     <View
         android:id="@+id/line_divider"
@@ -79,6 +49,6 @@
         android:background="@color/color_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_company_post_item" />
+        app:layout_constraintTop_toBottomOf="@id/body_comments_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

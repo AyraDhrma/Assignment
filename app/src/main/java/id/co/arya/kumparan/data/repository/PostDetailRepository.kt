@@ -4,10 +4,7 @@ import id.co.arya.kumparan.api.ApiService
 
 class PostDetailRepository {
 
-    suspend fun listPostApi() =
-        ApiService().API_SERVICE.listPostApi()
-
-    suspend fun listUserApi() =
-        ApiService().API_SERVICE.listUserApi()
+    suspend fun listPostCommentsApi(postId: String) =
+        ApiService().API_SERVICE.listPostCommentsApi(postId)
 
 }

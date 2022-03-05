@@ -3,4 +3,5 @@
     <string name="home">Home</string>
     <string name="check_internet_connection">Check your internet connection</string>
     <string name="detail">Detail</string>
+    <string name="comments">Comments</string>
 </resources>
