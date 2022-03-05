@@ -1,5 +1,6 @@
 package id.co.arya.kumparan.ui.post
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -42,6 +43,7 @@ class DetailPostActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory)[PostDetailViewModel::class.java]
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onStart() {
         super.onStart()
 
@@ -49,6 +51,7 @@ class DetailPostActivity : AppCompatActivity() {
             binding.apply {
                 postTitleDetailPost.text = it.postTitle
                 postContentDetailPost.text = it.postBody
+                postPostedbyDetailPost.text = "Posted by ${it.username}"
             }
         }
 
