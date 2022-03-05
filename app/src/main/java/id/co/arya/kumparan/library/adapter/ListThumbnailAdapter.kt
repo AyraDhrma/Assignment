@@ -1,16 +1,19 @@
 package id.co.arya.kumparan.library.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import id.co.arya.kumparan.data.model.PhotosModel
+import id.co.arya.kumparan.data.model.LocalPhotosModel
 import id.co.arya.kumparan.data.model.PostDetailModel
 import id.co.arya.kumparan.databinding.RvItemsSubAlbumsBinding
+import id.co.arya.kumparan.utils.StringUtils
 
-class ListThumbnailAdapter(private val albumsId: Int, private val photosModel: PhotosModel) :
+
+class ListThumbnailAdapter(private val listPhotos: ArrayList<LocalPhotosModel>) :
     RecyclerView.Adapter<ListThumbnailAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: RvItemsSubAlbumsBinding) :
@@ -35,17 +38,17 @@ class ListThumbnailAdapter(private val albumsId: Int, private val photosModel: P
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.apply {
             binding.apply {
-                if (photosModel[position].albumId == albumsId) {
-                    Glide.with(holder.itemView.context).load(photosModel[position].thumbnailUrl)
-                        .transform(CenterInside(), RoundedCorners(24))
-                        .into(thumbnailAlbums);
-                }
+                Log.d(StringUtils.NAME, "onBindViewHolder: ${listPhotos[position].thumbnailUrl}")
+                Glide.with(holder.itemView.context).load(listPhotos[position].thumbnailUrl)
+                    .transform(CenterInside(), RoundedCorners(24))
+                    .into(thumbnailAlbums);
+
             }
         }
     }
 
     override fun getItemCount(): Int {
-        return photosModel.size
+        return listPhotos.size
     }
 
     interface SelectedPost {

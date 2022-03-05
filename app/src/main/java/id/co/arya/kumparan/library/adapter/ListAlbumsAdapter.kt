@@ -8,18 +8,13 @@ import id.co.arya.kumparan.data.model.*
 import id.co.arya.kumparan.databinding.RvItemsMainAlbumsBinding
 
 class ListAlbumsAdapter(
-    private val albumsModel: AlbumsModel
+    private val albumsModel: AlbumsModel,
+    private val listPhotos: ArrayList<LocalPhotosModel>
 ) :
     RecyclerView.Adapter<ListAlbumsAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: RvItemsMainAlbumsBinding) :
         RecyclerView.ViewHolder(binding.root)
-
-    lateinit var listPhotosModel: PhotosModel
-
-    fun setListPhotos(photosModel: PhotosModel) {
-        this.listPhotosModel = photosModel
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -35,14 +30,14 @@ class ListAlbumsAdapter(
         holder.apply {
             binding.apply {
                 titleAlbumsItem.text = albumsModel[position].title
-//                val adapter = ListThumbnailAdapter(albumsModel[position].id, photosModel)
-//                listThumbnailRecyclerView.hasFixedSize()
-//                listThumbnailRecyclerView.layoutManager = LinearLayoutManager(
-//                    holder.itemView.context,
-//                    LinearLayoutManager.HORIZONTAL,
-//                    false
-//                )
-//                listThumbnailRecyclerView.adapter = adapter
+                val adapter = ListThumbnailAdapter(listPhotos)
+                listThumbnailRecyclerView.hasFixedSize()
+                listThumbnailRecyclerView.layoutManager = LinearLayoutManager(
+                    holder.itemView.context,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+                listThumbnailRecyclerView.adapter = adapter
             }
         }
     }

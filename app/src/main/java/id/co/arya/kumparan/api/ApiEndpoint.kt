@@ -23,7 +23,7 @@ interface ApiEndpoint {
 //    suspend fun listAlbumsPhotosApi(@Path("id") userId: String): PhotosModel
 
     @GET("/photos")
-    suspend fun listAlbumsPhotosApi(): PhotosModel
+    suspend fun listAlbumsPhotosApi():  ArrayList<PhotosModel.PhotosModelItem>
 
     @GET("/users/{id}")
     suspend fun detailUserApi(@Path("id") userId: String): UserModel.UserModelItem

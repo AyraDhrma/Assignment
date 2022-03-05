@@ -1,6 +1,9 @@
 package id.co.arya.kumparan.data.model
 
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -16,5 +19,6 @@ class PhotosModel : ArrayList<PhotosModel.PhotosModelItem>(), Serializable {
         val title: String,
         @SerializedName("url")
         val url: String
-    ): Serializable
+    ) : Serializable
+
 }

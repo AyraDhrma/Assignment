@@ -21,7 +21,7 @@ class ApiService {
 
     private fun okHttpClientInstance(): OkHttpClient {
         val client = OkHttpClient.Builder()
-        client.addInterceptor(loggingInterceptor)
+        //client.addInterceptor(loggingInterceptor)
         client.connectTimeout(timeout.toLong(), TimeUnit.SECONDS)
         client.readTimeout(timeout.toLong(), TimeUnit.SECONDS)
         client.writeTimeout(timeout.toLong(), TimeUnit.SECONDS)

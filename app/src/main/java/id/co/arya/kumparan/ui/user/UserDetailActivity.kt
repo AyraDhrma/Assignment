@@ -3,18 +3,23 @@ package id.co.arya.kumparan.ui.user
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
+import com.google.gson.Gson
 import id.co.arya.kumparan.R
 import id.co.arya.kumparan.api.StatusApi
 import id.co.arya.kumparan.data.factory.UserViewModelFactory
 import id.co.arya.kumparan.data.model.AlbumsModel
-import id.co.arya.kumparan.data.model.PhotosModel
+import id.co.arya.kumparan.data.model.LocalPhotosModel
 import id.co.arya.kumparan.data.model.UserModel
 import id.co.arya.kumparan.data.viewmodel.UserViewModel
 import id.co.arya.kumparan.databinding.ActivityUserDetailBinding
 import id.co.arya.kumparan.library.adapter.ListAlbumsAdapter
+import id.co.arya.kumparan.local.AppDatabase
+import id.co.arya.kumparan.local.RoomDao
 import id.co.arya.kumparan.utils.StringUtils
 import id.co.arya.kumparan.utils.hideView
 import id.co.arya.kumparan.utils.showToast
@@ -28,7 +33,8 @@ class UserDetailActivity : AppCompatActivity() {
     private var userId: String = ""
     private lateinit var viewModel: UserViewModel
     private lateinit var factory: UserViewModelFactory
-    private lateinit var photosModel: PhotosModel
+    private lateinit var roomDao: RoomDao
+    private lateinit var database: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +54,18 @@ class UserDetailActivity : AppCompatActivity() {
         factory = UserViewModelFactory()
         viewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
         userId = intent.getStringExtra(StringUtils.INTENT_DETAIL_DATA).toString()
+        try {
+            database = Room.databaseBuilder(
+                applicationContext,
+                AppDatabase::class.java, StringUtils.NAME
+            ).allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
+            roomDao = database.dao()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
     private fun fetchUser() {
@@ -87,7 +105,17 @@ class UserDetailActivity : AppCompatActivity() {
                     StatusApi.SUCCESS -> {
                         binding.progressDetailUser.hideView()
                         result.data?.let {
-                            photosModel = it
+                            it.map { list ->
+                                roomDao.insertPhotos(
+                                    LocalPhotosModel(
+                                        list.id,
+                                        list.albumId,
+                                        list.thumbnailUrl,
+                                        list.title,
+                                        list.url
+                                    )
+                                )
+                            }
                         }
                     }
                     StatusApi.ERROR -> {
@@ -128,8 +156,13 @@ class UserDetailActivity : AppCompatActivity() {
     }
 
     private fun setupToAlbumsRecyclerView(albumsModel: AlbumsModel) {
-        val adapter = ListAlbumsAdapter(albumsModel)
-        //adapter.setListPhotos(photosModel)
+        val photosModel = arrayListOf<LocalPhotosModel>()
+        albumsModel.map {
+            photosModel.add(roomDao.selectPhotosByAlbum(it.id))
+        }
+        Log.d(StringUtils.NAME, "setupToAlbumsRecyclerView:${Gson().toJson(photosModel)}")
+        Log.d(StringUtils.NAME, "setupToAlbumsRecyclerView: ${Gson().toJson(roomDao.selectAll())}")
+        val adapter = ListAlbumsAdapter(albumsModel, photosModel)
         binding.apply {
             listAlbumsRecyclerView.hasFixedSize()
             listAlbumsRecyclerView.layoutManager = LinearLayoutManager(this@UserDetailActivity)
@@ -154,6 +187,11 @@ class UserDetailActivity : AppCompatActivity() {
                 onBackPressed()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        roomDao.emptyData()
     }
 
 }
