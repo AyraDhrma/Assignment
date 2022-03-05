@@ -15,6 +15,7 @@
             android:id="@+id/progress_detail_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
-            android:text="@string/post_detail"
+            android:text="@string/user_detail"
             android:textAlignment="center"
             android:textColor="@color/color_title"
             android:textSize="@dimen/_24ssp"
@@ -74,43 +75,43 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/post_title_detail_post" />
 
-        <View
-            android:id="@+id/line_divider"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:background="@color/color_line"
-            app:layout_constraintEnd_toEndOf="@+id/post_title_detail_post"
-            app:layout_constraintStart_toStartOf="@+id/post_title_detail_post"
-            app:layout_constraintTop_toBottomOf="@id/post_content_detail_post" />
+<!--        <View-->
+<!--            android:id="@+id/line_divider"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="@dimen/_4sdp"-->
+<!--            android:layout_marginTop="@dimen/_6sdp"-->
+<!--            android:background="@color/color_line"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/post_title_detail_post"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/post_title_detail_post"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/post_content_detail_post" />-->
 
-        <TextView
-            android:id="@+id/post_comment_label_detail_post"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:text="@string/comments"
-            android:textAlignment="textStart"
-            android:textColor="@color/color_title"
-            android:textSize="@dimen/_16ssp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/line_divider" />
+<!--        <TextView-->
+<!--            android:id="@+id/post_comment_label_detail_post"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="@dimen/_10sdp"-->
+<!--            android:layout_marginTop="@dimen/_6sdp"-->
+<!--            android:layout_marginEnd="@dimen/_10sdp"-->
+<!--            android:text="@string/comments"-->
+<!--            android:textAlignment="textStart"-->
+<!--            android:textColor="@color/color_title"-->
+<!--            android:textSize="@dimen/_16ssp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/line_divider" />-->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_comment_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/post_comment_label_detail_post"
-            tools:itemCount="6"
-            tools:listitem="@layout/rv_items_comments" />
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/list_comment_recycler_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:overScrollMode="never"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/post_comment_label_detail_post"-->
+<!--            tools:itemCount="6"-->
+<!--            tools:listitem="@layout/rv_items_comments" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

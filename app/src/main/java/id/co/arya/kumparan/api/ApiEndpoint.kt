@@ -18,4 +18,7 @@ interface ApiEndpoint {
     @GET("/posts/{id}/comments")
     suspend fun listPostCommentsApi(@Path("id") postId: String): PostCommentsModel
 
+    @GET("/albums?userId={id}")
+    suspend fun listAlbumsUserApi(@Path("id") postId: String): PostCommentsModel
+
 }

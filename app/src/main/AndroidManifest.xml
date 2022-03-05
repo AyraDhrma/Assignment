@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kumparan">
         <activity
+            android:name=".ui.user.UserDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.post.DetailPostActivity"
             android:exported="false" />
         <activity

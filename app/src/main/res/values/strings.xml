@@ -4,4 +4,6 @@
     <string name="check_internet_connection">Check your internet connection</string>
     <string name="detail">Detail</string>
     <string name="comments">Comments</string>
+    <string name="post_detail">Post Detail</string>
+    <string name="user_detail">User Detail</string>
 </resources>
