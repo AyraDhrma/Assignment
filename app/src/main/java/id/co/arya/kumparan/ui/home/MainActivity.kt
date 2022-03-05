@@ -1,15 +1,22 @@
 package id.co.arya.kumparan.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import id.co.arya.kumparan.R
 import id.co.arya.kumparan.api.StatusApi
 import id.co.arya.kumparan.data.factory.MainViewModelFactory
+import id.co.arya.kumparan.data.model.PostDetailModel
+import id.co.arya.kumparan.data.model.PostModel
 import id.co.arya.kumparan.data.model.UserModel
 import id.co.arya.kumparan.data.viewmodel.MainViewModel
 import id.co.arya.kumparan.databinding.ActivityMainBinding
+import id.co.arya.kumparan.library.adapter.ListPostAdapter
+import id.co.arya.kumparan.ui.post.DetailPostActivity
+import id.co.arya.kumparan.utils.StringUtils
 import id.co.arya.kumparan.utils.hideView
 import id.co.arya.kumparan.utils.showToast
 import id.co.arya.kumparan.utils.showView
@@ -73,10 +80,8 @@ class MainActivity : AppCompatActivity() {
                         StatusApi.SUCCESS -> {
                             binding.progressHome.hideView()
                             result.data?.let {
-                                mainViewModel.setupToPostRecyclerView(
-                                    binding,
+                                setupToPostRecyclerView(
                                     it,
-                                    this@MainActivity,
                                     listUser
                                 )
                             }
@@ -90,6 +95,33 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
+        }
+    }
+
+    private fun setupToPostRecyclerView(
+        listPost: PostModel,
+        listUser: UserModel
+    ) {
+        binding.apply {
+            val adapter = ListPostAdapter(listPost, listUser)
+            listPostRecyclerView.hasFixedSize()
+            listPostRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+            listPostRecyclerView.adapter = adapter
+            adapter.onSelectedPost(object : ListPostAdapter.SelectedPost {
+                override fun selectedPost(postDetailModel: PostDetailModel, position: Int) {
+                    startActivity(
+                        Intent(
+                            this@MainActivity,
+                            DetailPostActivity::class.java
+                        ).apply {
+                            putExtra(
+                                StringUtils.INTENT_DETAIL_DATA,
+                                postDetailModel
+                            )
+                        }
+                    )
+                }
+            })
         }
     }
 

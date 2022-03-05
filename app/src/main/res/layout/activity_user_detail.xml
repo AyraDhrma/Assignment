@@ -12,17 +12,17 @@
         android:layout_height="match_parent">
 
         <ProgressBar
-            android:id="@+id/progress_detail_post"
+            android:id="@+id/progress_detail_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/line_divider" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/close_detail_post"
+            android:id="@+id/close_detail_user"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
             android:layout_margin="@dimen/_10sdp"
@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/page_title_detail_post"
+            android:id="@+id/page_title_detail_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
@@ -40,9 +40,9 @@
             android:textColor="@color/color_title"
             android:textSize="@dimen/_24ssp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/close_detail_post"
-            app:layout_constraintStart_toEndOf="@+id/close_detail_post"
-            app:layout_constraintTop_toTopOf="@+id/close_detail_post" />
+            app:layout_constraintBottom_toBottomOf="@+id/close_detail_user"
+            app:layout_constraintStart_toEndOf="@+id/close_detail_user"
+            app:layout_constraintTop_toTopOf="@+id/close_detail_user" />
 
         <TextView
             android:id="@+id/username_detail_user"
@@ -57,7 +57,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/page_title_detail_post"
+            app:layout_constraintTop_toBottomOf="@id/page_title_detail_user"
             tools:text="Arya Dharma" />
 
         <TextView
@@ -81,6 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
+            android:justificationMode="inter_word"
             android:textAlignment="textStart"
             android:textColor="@color/color_body"
             android:textSize="@dimen/_18ssp"
@@ -90,73 +91,58 @@
             app:layout_constraintTop_toBottomOf="@id/email_detail_user"
             tools:text="aryadharma5007@gmail.com" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/post_content_detail_post"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="@dimen/_10sdp"-->
-        <!--            android:layout_marginEnd="@dimen/_10sdp"-->
-        <!--            android:justificationMode="inter_word"-->
-        <!--            android:text="@string/detail"-->
-        <!--            android:textAlignment="textStart"-->
-        <!--            android:textColor="@color/color_body"-->
-        <!--            android:textSize="@dimen/_15ssp"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/post_title_detail_post" />-->
+        <TextView
+            android:id="@+id/company_detail_user"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:textAlignment="textStart"
+            android:textColor="@color/color_body"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/address_detail_user"
+            tools:text="aryadharma5007@gmail.com" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/post_content_detail_post"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="@dimen/_10sdp"-->
-        <!--            android:layout_marginEnd="@dimen/_10sdp"-->
-        <!--            android:justificationMode="inter_word"-->
-        <!--            android:text="@string/detail"-->
-        <!--            android:textAlignment="textStart"-->
-        <!--            android:textColor="@color/color_body"-->
-        <!--            android:textSize="@dimen/_15ssp"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/post_title_detail_post" />-->
+        <View
+            android:id="@+id/line_divider"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:background="@color/color_line"
+            app:layout_constraintEnd_toEndOf="@+id/company_detail_user"
+            app:layout_constraintStart_toStartOf="@+id/company_detail_user"
+            app:layout_constraintTop_toBottomOf="@id/company_detail_user" />
 
-        <!--        <View-->
-        <!--            android:id="@+id/line_divider"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="@dimen/_4sdp"-->
-        <!--            android:layout_marginTop="@dimen/_6sdp"-->
-        <!--            android:background="@color/color_line"-->
-        <!--            app:layout_constraintEnd_toEndOf="@+id/post_title_detail_post"-->
-        <!--            app:layout_constraintStart_toStartOf="@+id/post_title_detail_post"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/post_content_detail_post" />-->
+        <TextView
+            android:id="@+id/albums_label_detail_user"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:text="@string/list_albums"
+            android:textAlignment="textStart"
+            android:textColor="@color/color_title"
+            android:textSize="@dimen/_16ssp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line_divider" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/post_comment_label_detail_post"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="@dimen/_10sdp"-->
-        <!--            android:layout_marginTop="@dimen/_6sdp"-->
-        <!--            android:layout_marginEnd="@dimen/_10sdp"-->
-        <!--            android:text="@string/comments"-->
-        <!--            android:textAlignment="textStart"-->
-        <!--            android:textColor="@color/color_title"-->
-        <!--            android:textSize="@dimen/_16ssp"-->
-        <!--            android:textStyle="bold"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/line_divider" />-->
-
-        <!--        <androidx.recyclerview.widget.RecyclerView-->
-        <!--            android:id="@+id/list_comment_recycler_view"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:overScrollMode="never"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/post_comment_label_detail_post"-->
-        <!--            tools:itemCount="6"-->
-        <!--            tools:listitem="@layout/rv_items_comments" />-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_albums_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/albums_label_detail_user"
+            tools:itemCount="6"
+            tools:listitem="@layout/rv_items_main_albums" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

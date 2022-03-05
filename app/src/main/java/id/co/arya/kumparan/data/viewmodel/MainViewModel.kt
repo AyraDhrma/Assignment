@@ -38,33 +38,4 @@ class MainViewModel(
         }
     }
 
-    fun setupToPostRecyclerView(
-        binding: ActivityMainBinding,
-        listPost: PostModel,
-        mContext: Context,
-        listUser: UserModel
-    ) {
-        binding.apply {
-            val adapter = ListPostAdapter(listPost, listUser)
-            listPostRecyclerView.hasFixedSize()
-            listPostRecyclerView.layoutManager = LinearLayoutManager(mContext)
-            listPostRecyclerView.adapter = adapter
-            adapter.onSelectedPost(object : ListPostAdapter.SelectedPost {
-                override fun selectedPost(postDetailModel: PostDetailModel, position: Int) {
-                    mContext.startActivity(
-                        Intent(
-                            mContext,
-                            DetailPostActivity::class.java
-                        ).apply {
-                            putExtra(
-                                StringUtils.INTENT_DETAIL_DATA,
-                                postDetailModel
-                            )
-                        }
-                    )
-                }
-            })
-        }
-    }
-
 }

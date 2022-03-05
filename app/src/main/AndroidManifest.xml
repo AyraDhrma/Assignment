@@ -13,10 +13,12 @@
         android:theme="@style/Theme.Kumparan">
         <activity
             android:name=".ui.user.UserDetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.post.DetailPostActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.home.MainActivity"
             android:exported="true"

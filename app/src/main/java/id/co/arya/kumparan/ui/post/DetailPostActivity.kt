@@ -1,6 +1,7 @@
 package id.co.arya.kumparan.ui.post
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +12,7 @@ import id.co.arya.kumparan.data.factory.PostDetailViewModelFactory
 import id.co.arya.kumparan.data.model.PostDetailModel
 import id.co.arya.kumparan.data.viewmodel.PostDetailViewModel
 import id.co.arya.kumparan.databinding.ActivityDetailPostBinding
+import id.co.arya.kumparan.ui.user.UserDetailActivity
 import id.co.arya.kumparan.utils.StringUtils
 import id.co.arya.kumparan.utils.hideView
 import id.co.arya.kumparan.utils.showToast
@@ -62,6 +64,19 @@ class DetailPostActivity : AppCompatActivity() {
         binding.apply {
             closeDetailPost.setOnClickListener {
                 onBackPressed()
+            }
+            postPostedbyDetailPost.setOnClickListener {
+                detailModel?.let {
+                    startActivity(
+                        Intent(
+                            this@DetailPostActivity,
+                            UserDetailActivity::class.java
+                        ).putExtra(
+                            StringUtils.INTENT_DETAIL_DATA,
+                            it.userId
+                        )
+                    )
+                }
             }
         }
     }

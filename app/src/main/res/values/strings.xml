@@ -6,4 +6,6 @@
     <string name="comments">Comments</string>
     <string name="post_detail">Post Detail</string>
     <string name="user_detail">User Detail</string>
+    <string name="list_albums">List Albums</string>
+    <string name="thumbnail_albums">Thumbnail Albums</string>
 </resources>
