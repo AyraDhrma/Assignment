@@ -15,10 +15,10 @@ class ListAlbumsAdapter(
     inner class ViewHolder(val binding: RvItemsMainAlbumsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    lateinit var selectedPost: SelectedPost
+    lateinit var listPhotosModel: PhotosModel
 
-    fun onSelectedPost(selectedPost: SelectedPost) {
-        this.selectedPost = selectedPost
+    fun setListPhotos(photosModel: PhotosModel) {
+        this.listPhotosModel = photosModel
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,10 +49,6 @@ class ListAlbumsAdapter(
 
     override fun getItemCount(): Int {
         return albumsModel.size
-    }
-
-    interface SelectedPost {
-        fun selectedPost(postDetailModel: PostDetailModel, position: Int)
     }
 
 }

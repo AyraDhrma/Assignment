@@ -38,7 +38,7 @@ class UserDetailActivity : AppCompatActivity() {
         initObject()
 
         fetchUser()
-//        fetchPhotos()
+        fetchPhotos()
         fetchAlbums()
 
         events()
@@ -129,6 +129,7 @@ class UserDetailActivity : AppCompatActivity() {
 
     private fun setupToAlbumsRecyclerView(albumsModel: AlbumsModel) {
         val adapter = ListAlbumsAdapter(albumsModel)
+        //adapter.setListPhotos(photosModel)
         binding.apply {
             listAlbumsRecyclerView.hasFixedSize()
             listAlbumsRecyclerView.layoutManager = LinearLayoutManager(this@UserDetailActivity)

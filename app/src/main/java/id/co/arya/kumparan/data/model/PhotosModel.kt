@@ -2,8 +2,9 @@ package id.co.arya.kumparan.data.model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class PhotosModel : ArrayList<PhotosModel.PhotosModelItem>() {
+class PhotosModel : ArrayList<PhotosModel.PhotosModelItem>(), Serializable {
     data class PhotosModelItem(
         @SerializedName("albumId")
         val albumId: Int,
@@ -15,5 +16,5 @@ class PhotosModel : ArrayList<PhotosModel.PhotosModelItem>() {
         val title: String,
         @SerializedName("url")
         val url: String
-    )
+    ): Serializable
 }
