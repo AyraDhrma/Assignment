@@ -36,9 +36,11 @@ class UserDetailActivity : AppCompatActivity() {
 
         initObject()
 
-        fetchUser()
-        fetchPhotos()
-        fetchAlbums()
+        lifecycleScope.launch(Dispatchers.Main) {
+            fetchPhotos()
+            fetchUser()
+            fetchAlbums()
+        }
 
         events()
     }
@@ -49,94 +51,87 @@ class UserDetailActivity : AppCompatActivity() {
         userId = intent.getStringExtra(StringUtils.INTENT_DETAIL_DATA).toString()
     }
 
-    private fun fetchUser() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            viewModel.detailUserApi(userId).observe(this@UserDetailActivity) { result ->
-                when (result.statusApi) {
-                    StatusApi.LOADING -> {
-                        binding.progressDetailUser.showView()
-                    }
-                    StatusApi.SUCCESS -> {
-                        result.data?.let {
-                            if (it.id.toString() != "") {
-                                setupToView(it)
-                            }
+    private suspend fun fetchUser() {
+        viewModel.detailUserApi(userId).observe(this@UserDetailActivity) { result ->
+            when (result.statusApi) {
+                StatusApi.LOADING -> {
+                    binding.progressDetailUser.showView()
+                }
+                StatusApi.SUCCESS -> {
+                    result.data?.let {
+                        if (it.id.toString() != "") {
+                            setupToView(it)
                         }
-                        binding.progressDetailUser.hideView()
                     }
-                    StatusApi.ERROR -> {
-                        binding.progressDetailUser.hideView()
-                        showToast(
-                            resources.getString(R.string.check_internet_connection),
-                            this@UserDetailActivity
-                        )
-                    }
+                }
+                StatusApi.ERROR -> {
+                    binding.progressDetailUser.hideView()
+                    showToast(
+                        resources.getString(R.string.check_internet_connection),
+                        this@UserDetailActivity
+                    )
                 }
             }
         }
+
     }
 
-    private fun fetchPhotos() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            viewModel.listAlbumsPhotosApi().observe(this@UserDetailActivity) { result ->
-                when (result.statusApi) {
-                    StatusApi.LOADING -> {
-                        binding.progressDetailUser.showView()
-                    }
-                    StatusApi.SUCCESS -> {
-                        result.data?.let {
-                            it.map { list ->
-                                viewModel.insertPhotos(
-                                    LocalPhotosModel(
-                                        list.id,
-                                        list.albumId,
-                                        list.thumbnailUrl,
-                                        list.title,
-                                        list.url
-                                    )
+    private suspend fun fetchPhotos() {
+        viewModel.listAlbumsPhotosApi().observe(this@UserDetailActivity) { result ->
+            when (result.statusApi) {
+                StatusApi.LOADING -> {
+                    binding.progressAlbumsUser.showView()
+                }
+                StatusApi.SUCCESS -> {
+                    result.data?.let {
+                        it.map { list ->
+                            viewModel.insertPhotos(
+                                LocalPhotosModel(
+                                    list.id,
+                                    list.albumId,
+                                    list.thumbnailUrl,
+                                    list.title,
+                                    list.url
                                 )
-                            }
+                            )
                         }
-                        binding.progressDetailUser.hideView()
                     }
-                    StatusApi.ERROR -> {
-                        binding.progressDetailUser.hideView()
-                        showToast(
-                            resources.getString(R.string.check_internet_connection),
-                            this@UserDetailActivity
-                        )
-                    }
+                }
+                StatusApi.ERROR -> {
+                    binding.progressAlbumsUser.hideView()
+                    showToast(
+                        resources.getString(R.string.check_internet_connection),
+                        this@UserDetailActivity
+                    )
                 }
             }
         }
     }
 
-    private fun fetchAlbums() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            viewModel.listAlbumsUserApi(userId).observe(this@UserDetailActivity) { result ->
-                when (result.statusApi) {
-                    StatusApi.LOADING -> {
-                        binding.progressDetailUser.showView()
+    private suspend fun fetchAlbums() {
+        viewModel.listAlbumsUserApi(userId).observe(this@UserDetailActivity) { result ->
+            when (result.statusApi) {
+                StatusApi.LOADING -> {
+                    binding.progressAlbumsUser.showView()
+                }
+                StatusApi.SUCCESS -> {
+                    result.data?.let {
+                        setupToAlbumsRecyclerView(it)
                     }
-                    StatusApi.SUCCESS -> {
-                        result.data?.let {
-                            setupToAlbumsRecyclerView(it)
-                        }
-                        binding.progressDetailUser.hideView()
-                    }
-                    StatusApi.ERROR -> {
-                        binding.progressDetailUser.hideView()
-                        showToast(
-                            resources.getString(R.string.check_internet_connection),
-                            this@UserDetailActivity
-                        )
-                    }
+                }
+                StatusApi.ERROR -> {
+                    binding.progressAlbumsUser.hideView()
+                    showToast(
+                        resources.getString(R.string.check_internet_connection),
+                        this@UserDetailActivity
+                    )
                 }
             }
         }
     }
 
     private fun setupToAlbumsRecyclerView(albumsModel: AlbumsModel) {
+        binding.progressAlbumsUser.showView()
         val photosModel = arrayListOf<LocalPhotosModel>()
         albumsModel.map {
             photosModel.add(viewModel.selectPhotosByAlbums(it.id))
@@ -147,17 +142,20 @@ class UserDetailActivity : AppCompatActivity() {
             listAlbumsRecyclerView.hasFixedSize()
             listAlbumsRecyclerView.layoutManager = LinearLayoutManager(this@UserDetailActivity)
             listAlbumsRecyclerView.adapter = adapter
+            binding.progressAlbumsUser.hideView()
         }
     }
 
     @SuppressLint("SetTextI18n")
     private fun setupToView(userData: UserModel.UserModelItem) {
         binding.apply {
+            progressDetailUser.showView()
             usernameDetailUser.text = "Name : ${userData.name}"
             emailDetailUser.text = userData.email
             addressDetailUser.text =
                 "${userData.address.street}, ${userData.address.suite}, ${userData.address.city}, ${userData.address.zipcode}"
             companyDetailUser.text = "Company ${userData.company.name}"
+            progressDetailUser.hideView()
         }
     }
 

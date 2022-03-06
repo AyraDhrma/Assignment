@@ -2,11 +2,12 @@ package id.co.arya.kumparan.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Room
 import id.co.arya.kumparan.R
 import id.co.arya.kumparan.api.StatusApi
 import id.co.arya.kumparan.data.factory.MainViewModelFactory
@@ -16,8 +17,6 @@ import id.co.arya.kumparan.data.model.UserModel
 import id.co.arya.kumparan.data.viewmodel.MainViewModel
 import id.co.arya.kumparan.databinding.ActivityMainBinding
 import id.co.arya.kumparan.library.adapter.ListPostAdapter
-import id.co.arya.kumparan.local.AppDatabase
-import id.co.arya.kumparan.local.RoomDao
 import id.co.arya.kumparan.ui.post.DetailPostActivity
 import id.co.arya.kumparan.utils.StringUtils
 import id.co.arya.kumparan.utils.hideView
@@ -41,9 +40,36 @@ class MainActivity : AppCompatActivity() {
 
         initObject()
 
+        lifecycleScope.launch(Dispatchers.Main) {
+            fetchUser()
+            fetchPost()
+        }
 
-        fetchUser()
-        fetchPost()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        events()
+    }
+
+    private fun events() {
+        binding.apply {
+            mainSection.setOnRefreshListener {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    val intent = Intent(this@MainActivity, MainActivity::class.java)
+                    intent.addFlags(
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                                or Intent.FLAG_ACTIVITY_NO_ANIMATION
+                    )
+                    overridePendingTransition(0, 0)
+                    finish()
+                    overridePendingTransition(0, 0)
+                    startActivity(intent)
+                    mainSection.isRefreshing = false
+                }, 4000)
+            }
+        }
     }
 
     private fun initObject() {
@@ -51,59 +77,55 @@ class MainActivity : AppCompatActivity() {
         mainViewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
     }
 
-    fun fetchUser() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            mainViewModel.listUserApi()
-                .observe(this@MainActivity) { result ->
-                    when (result.statusApi) {
-                        StatusApi.LOADING -> {
-                            binding.progressHome.showView()
-                        }
-                        StatusApi.SUCCESS -> {
-                            binding.progressHome.hideView()
-                            result.data?.let {
-                                listUser = it
-                            }
-                        }
-                        StatusApi.ERROR -> {
-                            binding.progressHome.hideView()
-                            showToast(
-                                resources.getString(R.string.check_internet_connection),
-                                this@MainActivity
-                            )
+    suspend fun fetchUser() {
+        mainViewModel.listUserApi()
+            .observe(this@MainActivity) { result ->
+                when (result.statusApi) {
+                    StatusApi.LOADING -> {
+                        binding.progressHome.showView()
+                    }
+                    StatusApi.SUCCESS -> {
+                        binding.progressHome.hideView()
+                        result.data?.let {
+                            listUser = it
                         }
                     }
+                    StatusApi.ERROR -> {
+                        binding.progressHome.hideView()
+                        showToast(
+                            resources.getString(R.string.check_internet_connection),
+                            this@MainActivity
+                        )
+                    }
                 }
-        }
+            }
     }
 
-    fun fetchPost() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            mainViewModel.listPostApi()
-                .observe(this@MainActivity) { result ->
-                    when (result.statusApi) {
-                        StatusApi.LOADING -> {
-                            binding.progressHome.showView()
-                        }
-                        StatusApi.SUCCESS -> {
-                            binding.progressHome.hideView()
-                            result.data?.let {
-                                setupToPostRecyclerView(
-                                    it,
-                                    listUser
-                                )
-                            }
-                        }
-                        StatusApi.ERROR -> {
-                            binding.progressHome.hideView()
-                            showToast(
-                                resources.getString(R.string.check_internet_connection),
-                                this@MainActivity
+    suspend fun fetchPost() {
+        mainViewModel.listPostApi()
+            .observe(this@MainActivity) { result ->
+                when (result.statusApi) {
+                    StatusApi.LOADING -> {
+                        binding.progressHome.showView()
+                    }
+                    StatusApi.SUCCESS -> {
+                        binding.progressHome.hideView()
+                        result.data?.let {
+                            setupToPostRecyclerView(
+                                it,
+                                listUser
                             )
                         }
                     }
+                    StatusApi.ERROR -> {
+                        binding.progressHome.hideView()
+                        showToast(
+                            resources.getString(R.string.check_internet_connection),
+                            this@MainActivity
+                        )
+                    }
                 }
-        }
+            }
     }
 
     private fun setupToPostRecyclerView(
