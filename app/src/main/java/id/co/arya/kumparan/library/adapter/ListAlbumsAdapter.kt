@@ -16,6 +16,12 @@ class ListAlbumsAdapter(
     inner class ViewHolder(val binding: RvItemsMainAlbumsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
+    private lateinit var selectedThumbnail: SelectedThumbnail
+
+    fun onSelectedThumbnail(selectedThumbnail: SelectedThumbnail) {
+        this.selectedThumbnail = selectedThumbnail
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             RvItemsMainAlbumsBinding.inflate(
@@ -38,12 +44,21 @@ class ListAlbumsAdapter(
                     false
                 )
                 listThumbnailRecyclerView.adapter = adapter
+                adapter.onSelectedPost(object : ListThumbnailAdapter.SelectedPhotos {
+                    override fun selectedPhotos(photos: LocalPhotosModel) {
+                        selectedThumbnail.selectedThumbnail(photos)
+                    }
+                })
             }
         }
     }
 
     override fun getItemCount(): Int {
         return albumsModel.size
+    }
+
+    interface SelectedThumbnail {
+        fun selectedThumbnail(photosModel: LocalPhotosModel)
     }
 
 }

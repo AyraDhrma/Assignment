@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.squareup.picasso.Picasso
 import id.co.arya.kumparan.R
 import id.co.arya.kumparan.data.model.LocalPhotosModel
 import id.co.arya.kumparan.data.model.PostDetailModel
@@ -20,10 +21,10 @@ class ListThumbnailAdapter(private val listPhotos: ArrayList<LocalPhotosModel>) 
     inner class ViewHolder(val binding: RvItemsSubAlbumsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    lateinit var selectedPost: SelectedPost
+    lateinit var selectedPhotos: SelectedPhotos
 
-    fun onSelectedPost(selectedPost: SelectedPost) {
-        this.selectedPost = selectedPost
+    fun onSelectedPost(selectedPhotos: SelectedPhotos) {
+        this.selectedPhotos = selectedPhotos
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,12 +40,22 @@ class ListThumbnailAdapter(private val listPhotos: ArrayList<LocalPhotosModel>) 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.apply {
             binding.apply {
-                // Log.d(StringUtils.NAME, "onBindViewHolder: ${listPhotos[position].thumbnailUrl}.png")
-                Glide.with(holder.itemView.context).load("${listPhotos[position].thumbnailUrl}.png")
+                Picasso.get()
+                    .load(listPhotos[position].thumbnailUrl)
                     .placeholder(R.drawable.thumbnail)
-                    .transform(CenterInside(), RoundedCorners(24))
-                    .into(thumbnailAlbums);
-
+                    .error(R.drawable.thumbnail)
+                    .into(thumbnailAlbums)
+            }
+            itemView.setOnClickListener {
+                selectedPhotos.selectedPhotos(
+                    LocalPhotosModel(
+                        listPhotos[position].id,
+                        listPhotos[position].albumId,
+                        listPhotos[position].thumbnailUrl,
+                        listPhotos[position].title,
+                        listPhotos[position].url
+                    )
+                )
             }
         }
     }
@@ -53,8 +64,8 @@ class ListThumbnailAdapter(private val listPhotos: ArrayList<LocalPhotosModel>) 
         return listPhotos.size
     }
 
-    interface SelectedPost {
-        fun selectedPost(postDetailModel: PostDetailModel, position: Int)
+    interface SelectedPhotos {
+        fun selectedPhotos(photos: LocalPhotosModel)
     }
 
 }

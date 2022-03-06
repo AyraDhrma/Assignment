@@ -8,4 +8,5 @@
     <string name="user_detail">User Detail</string>
     <string name="list_albums">List Albums</string>
     <string name="thumbnail_albums">Thumbnail Albums</string>
+    <string name="photos_detail">Photos Detail</string>
 </resources>

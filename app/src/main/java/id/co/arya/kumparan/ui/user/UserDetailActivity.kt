@@ -1,6 +1,7 @@
 package id.co.arya.kumparan.ui.user
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,7 @@ import id.co.arya.kumparan.data.model.UserModel
 import id.co.arya.kumparan.data.viewmodel.UserViewModel
 import id.co.arya.kumparan.databinding.ActivityUserDetailBinding
 import id.co.arya.kumparan.library.adapter.ListAlbumsAdapter
+import id.co.arya.kumparan.ui.albums.PhotosDetailActivity
 import id.co.arya.kumparan.utils.StringUtils
 import id.co.arya.kumparan.utils.hideView
 import id.co.arya.kumparan.utils.showToast
@@ -143,6 +145,19 @@ class UserDetailActivity : AppCompatActivity() {
             listAlbumsRecyclerView.layoutManager = LinearLayoutManager(this@UserDetailActivity)
             listAlbumsRecyclerView.adapter = adapter
             binding.progressAlbumsUser.hideView()
+            adapter.onSelectedThumbnail(object : ListAlbumsAdapter.SelectedThumbnail {
+                override fun selectedThumbnail(photosModel: LocalPhotosModel) {
+                    startActivity(
+                        Intent(
+                            this@UserDetailActivity,
+                            PhotosDetailActivity::class.java
+                        ).putExtra(
+                            StringUtils.INTENT_DETAIL_DATA,
+                            photosModel
+                        )
+                    )
+                }
+            })
         }
     }
 
