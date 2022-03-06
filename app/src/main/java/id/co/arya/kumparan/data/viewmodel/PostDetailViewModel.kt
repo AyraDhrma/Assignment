@@ -12,8 +12,13 @@ import id.co.arya.kumparan.library.adapter.ListPostCommentsAdapter
 import kotlinx.coroutines.Dispatchers
 
 class PostDetailViewModel(
-    private val postDetailRepository: PostDetailRepository
 ) : ViewModel() {
+
+    private lateinit var postDetailRepository: PostDetailRepository
+
+    init {
+        postDetailRepository = PostDetailRepository()
+    }
 
     suspend fun listPostCommentsApi(postId: String) = liveData(Dispatchers.IO) {
         emit(ResultApi.loading(data = null))
@@ -21,19 +26,6 @@ class PostDetailViewModel(
             emit(ResultApi.success(data = postDetailRepository.listPostCommentsApi(postId)))
         } catch (e: Exception) {
             emit(ResultApi.error(data = null, message = e.localizedMessage ?: "Error Connection"))
-        }
-    }
-
-    fun setupToRecyclerView(
-        data: PostCommentsModel,
-        context: Context,
-        binding: ActivityDetailPostBinding
-    ) {
-        val adapter = ListPostCommentsAdapter(data)
-        binding.apply {
-            listCommentRecyclerView.hasFixedSize()
-            listCommentRecyclerView.layoutManager = LinearLayoutManager(context)
-            listCommentRecyclerView.adapter = adapter
         }
     }
 
