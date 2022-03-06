@@ -1,16 +1,26 @@
 package id.co.arya.kumparan.data.repository
 
+import androidx.lifecycle.LiveData
 import id.co.arya.kumparan.api.ApiService
+import id.co.arya.kumparan.data.model.LocalPhotosModel
+import id.co.arya.kumparan.local.AppDatabase
 
-open class UserRepository {
+class UserRepository(private val appDatabase: AppDatabase) {
 
-    open suspend fun detailUserApi(userId: String) =
+    suspend fun detailUserApi(userId: String) =
         ApiService().API_SERVICE.detailUserApi(userId)
 
-    open suspend fun listAlbumsUserApi(userId: String) =
+    suspend fun listAlbumsUserApi(userId: String) =
         ApiService().API_SERVICE.listAlbumsUserApi(userId)
 
-    open suspend fun listAlbumsPhotosApi() =
+    suspend fun listAlbumsPhotosApi() =
         ApiService().API_SERVICE.listAlbumsPhotosApi()
+
+    suspend fun insertPhotosAlbumsToRoom(listPhotosModel: LocalPhotosModel) {
+        appDatabase.dao().insertPhotos(listPhotosModel)
+    }
+
+    fun selectPhotosByAlbums(albumId: Int): LocalPhotosModel  =
+        appDatabase.dao().selectPhotosByAlbum(albumId)
 
 }

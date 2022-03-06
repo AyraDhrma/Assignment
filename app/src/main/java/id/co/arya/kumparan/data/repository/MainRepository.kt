@@ -1,13 +1,19 @@
 package id.co.arya.kumparan.data.repository
 
 import id.co.arya.kumparan.api.ApiService
+import id.co.arya.kumparan.data.model.LocalPhotosModel
+import id.co.arya.kumparan.local.AppDatabase
 
-open class MainRepository {
+class MainRepository(private val appDatabase: AppDatabase) {
 
-    open suspend fun listPostApi() =
+    suspend fun listPostApi() =
         ApiService().API_SERVICE.listPostApi()
 
-    open suspend fun listUserApi() =
+    suspend fun listUserApi() =
         ApiService().API_SERVICE.listUserApi()
+
+    suspend fun emptyTables() {
+        appDatabase.dao().emptyTables()
+    }
 
 }

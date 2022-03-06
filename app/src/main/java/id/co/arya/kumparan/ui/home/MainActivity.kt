@@ -32,8 +32,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModelFactory: MainViewModelFactory
     private lateinit var mainViewModel: MainViewModel
-    private lateinit var roomDao: RoomDao
-    private lateinit var database: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,18 +47,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObject() {
-        try {
-            database = Room.databaseBuilder(
-                applicationContext,
-                AppDatabase::class.java, StringUtils.NAME
-            ).allowMainThreadQueries()
-                .fallbackToDestructiveMigration()
-                .build()
-            roomDao = database.dao()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        mainViewModelFactory = MainViewModelFactory()
+        mainViewModelFactory = MainViewModelFactory(application)
         mainViewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
     }
 
@@ -148,7 +135,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        roomDao.emptyData()
+        mainViewModel.emptyTable()
     }
 
 }
