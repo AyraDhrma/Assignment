@@ -76,12 +76,12 @@ class UserDetailActivity : AppCompatActivity() {
                         binding.progressDetailUser.showView()
                     }
                     StatusApi.SUCCESS -> {
-                        binding.progressDetailUser.hideView()
                         result.data?.let {
                             if (it.id.toString() != "") {
                                 setupToView(it)
                             }
                         }
+                        binding.progressDetailUser.hideView()
                     }
                     StatusApi.ERROR -> {
                         binding.progressDetailUser.hideView()
@@ -103,7 +103,6 @@ class UserDetailActivity : AppCompatActivity() {
                         binding.progressDetailUser.showView()
                     }
                     StatusApi.SUCCESS -> {
-                        binding.progressDetailUser.hideView()
                         result.data?.let {
                             it.map { list ->
                                 roomDao.insertPhotos(
@@ -117,6 +116,7 @@ class UserDetailActivity : AppCompatActivity() {
                                 )
                             }
                         }
+                        binding.progressDetailUser.hideView()
                     }
                     StatusApi.ERROR -> {
                         binding.progressDetailUser.hideView()
@@ -138,10 +138,10 @@ class UserDetailActivity : AppCompatActivity() {
                         binding.progressDetailUser.showView()
                     }
                     StatusApi.SUCCESS -> {
-                        binding.progressDetailUser.hideView()
                         result.data?.let {
                             setupToAlbumsRecyclerView(it)
                         }
+                        binding.progressDetailUser.hideView()
                     }
                     StatusApi.ERROR -> {
                         binding.progressDetailUser.hideView()
@@ -160,8 +160,7 @@ class UserDetailActivity : AppCompatActivity() {
         albumsModel.map {
             photosModel.add(roomDao.selectPhotosByAlbum(it.id))
         }
-        Log.d(StringUtils.NAME, "setupToAlbumsRecyclerView:${Gson().toJson(photosModel)}")
-        Log.d(StringUtils.NAME, "setupToAlbumsRecyclerView: ${Gson().toJson(roomDao.selectAll())}")
+
         val adapter = ListAlbumsAdapter(albumsModel, photosModel)
         binding.apply {
             listAlbumsRecyclerView.hasFixedSize()
@@ -187,11 +186,6 @@ class UserDetailActivity : AppCompatActivity() {
                 onBackPressed()
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        roomDao.emptyData()
     }
 
 }
