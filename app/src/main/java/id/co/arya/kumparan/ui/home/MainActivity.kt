@@ -134,7 +134,6 @@ class MainActivity : AppCompatActivity() {
     ) {
         binding.apply {
             val adapter = ListPostAdapter(listPost, listUser)
-            adapter.notifyDataSetChanged()
             listPostRecyclerView.hasFixedSize()
             listPostRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
             listPostRecyclerView.adapter = adapter

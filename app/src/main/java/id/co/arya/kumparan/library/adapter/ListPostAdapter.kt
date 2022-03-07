@@ -15,6 +15,10 @@ class ListPostAdapter(private val listPostModel: PostModel, private val listUser
 
     inner class ViewHolder(val binding: RvItemsPostBinding) : RecyclerView.ViewHolder(binding.root)
 
+    init {
+        notifyDataSetChanged()
+    }
+
     lateinit var selectedPost: SelectedPost
 
     fun onSelectedPost(selectedPost: SelectedPost) {

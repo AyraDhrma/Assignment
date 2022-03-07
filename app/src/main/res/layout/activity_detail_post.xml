@@ -50,14 +50,14 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:text="@string/detail"
             android:textAlignment="textStart"
             android:textColor="@color/color_title"
             android:textSize="@dimen/_20ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/page_title_detail_post" />
+            app:layout_constraintTop_toBottomOf="@id/page_title_detail_post"
+            tools:text="@string/detail" />
 
         <TextView
             android:id="@+id/post_postedby_detail_post"
@@ -66,13 +66,14 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:justificationMode="inter_word"
-            android:text="@string/detail"
             android:textAlignment="textStart"
             android:textColor="@color/color_body"
             android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/post_title_detail_post" />
+            app:layout_constraintTop_toBottomOf="@id/post_title_detail_post"
+            tools:text="Posted by Arya Dharma" />
 
         <TextView
             android:id="@+id/post_content_detail_post"
@@ -82,13 +83,13 @@
             android:layout_marginTop="@dimen/_6sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:justificationMode="inter_word"
-            android:text="@string/detail"
             android:textAlignment="textStart"
             android:textColor="@color/color_body"
             android:textSize="@dimen/_15ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/post_postedby_detail_post" />
+            app:layout_constraintTop_toBottomOf="@id/post_postedby_detail_post"
+            tools:text="@string/detail" />
 
         <View
             android:id="@+id/line_divider"
