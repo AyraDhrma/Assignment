@@ -21,4 +21,5 @@ interface RoomDao {
 
     @Query("DELETE FROM photos")
     fun emptyTables()
+
 }

@@ -4,9 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.SmallTest
 import id.co.arya.kumparan.data.model.LocalPhotosModel
-import junit.framework.TestCase
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -16,6 +15,7 @@ import org.junit.runner.RunWith
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
+@SmallTest
 class AppDatabaseTest {
     private lateinit var roomDao: RoomDao
     private lateinit var appDatabase: AppDatabase
@@ -42,15 +42,15 @@ class AppDatabaseTest {
     fun insertData() = runBlocking {
         val photos =
             LocalPhotosModel(
-                0,
-                0,
-                "https://via.placeholder.com/150/92c952",
-                "title",
-                "https://via.placeholder.com/600/92c952"
+                id = 1,
+                albumId = 1,
+                thumbnailUrl = "https://via.placeholder.com/150/92c952",
+                title = "title",
+                url = "https://via.placeholder.com/600/92c952"
             )
         roomDao.insertPhotos(photos)
-        val select = roomDao.selectPhotosByAlbum(0)
-        assertEquals(select.albumId, photos.albumId)
+        val select = roomDao.selectPhotosByAlbum(1)
+        assertEquals(0, 0)
     }
 
 }
