@@ -1,10 +1,7 @@
 package id.co.arya.kumparan.ui.albums
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterInside
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import id.co.arya.kumparan.R
 import id.co.arya.kumparan.data.model.LocalPhotosModel

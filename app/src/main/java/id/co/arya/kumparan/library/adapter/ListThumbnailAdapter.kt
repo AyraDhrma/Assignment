@@ -1,18 +1,12 @@
 package id.co.arya.kumparan.library.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterInside
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.squareup.picasso.Picasso
 import id.co.arya.kumparan.R
 import id.co.arya.kumparan.data.model.LocalPhotosModel
-import id.co.arya.kumparan.data.model.PostDetailModel
 import id.co.arya.kumparan.databinding.RvItemsSubAlbumsBinding
-import id.co.arya.kumparan.utils.StringUtils
 
 
 class ListThumbnailAdapter(private val listPhotos: ArrayList<LocalPhotosModel>) :

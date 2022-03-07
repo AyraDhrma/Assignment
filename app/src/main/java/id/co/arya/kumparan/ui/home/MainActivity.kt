@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                     overridePendingTransition(0, 0)
                     startActivity(intent)
                     mainSection.isRefreshing = false
-                }, 4000)
+                }, 2000)
             }
         }
     }
