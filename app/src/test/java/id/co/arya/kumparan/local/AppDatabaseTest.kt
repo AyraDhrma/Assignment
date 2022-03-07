@@ -17,6 +17,7 @@ import java.io.IOException
 @RunWith(AndroidJUnit4::class)
 @SmallTest
 class AppDatabaseTest {
+
     private lateinit var roomDao: RoomDao
     private lateinit var appDatabase: AppDatabase
 
@@ -50,7 +51,63 @@ class AppDatabaseTest {
             )
         roomDao.insertPhotos(photos)
         val select = roomDao.selectPhotosByAlbum(1)
-        assertEquals(0, 0)
+        assertEquals(photos.albumId, select.albumId)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun selectAllInsert() = runBlocking {
+        val listPhotos = listOf(
+            LocalPhotosModel(
+                id = 1,
+                albumId = 1,
+                thumbnailUrl = "https://via.placeholder.com/150/92c952",
+                title = "title",
+                url = "https://via.placeholder.com/600/92c952"
+            ),
+            LocalPhotosModel(
+                id = 2,
+                albumId = 1,
+                thumbnailUrl = "https://via.placeholder.com/150/92c952",
+                title = "title",
+                url = "https://via.placeholder.com/600/92c952"
+            ),
+            LocalPhotosModel(
+                id = 3,
+                albumId = 1,
+                thumbnailUrl = "https://via.placeholder.com/150/92c952",
+                title = "title",
+                url = "https://via.placeholder.com/600/92c952"
+            )
+        )
+        listPhotos.map {
+            roomDao.insertPhotos(
+                LocalPhotosModel(
+                    id = it.id,
+                    albumId = it.albumId,
+                    thumbnailUrl = it.thumbnailUrl,
+                    title = it.title,
+                    url = it.url
+                )
+            )
+        }
+        val select = roomDao.selectAll()
+        assertEquals(listPhotos.size, select.size)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun selectByAlbumId() = runBlocking {
+        val photos = LocalPhotosModel(
+            id = 1,
+            albumId = 10,
+            thumbnailUrl = "https://via.placeholder.com/150/92c952",
+            title = "title",
+            url = "https://via.placeholder.com/600/92c952"
+        )
+        roomDao.insertPhotos(photos)
+        val select = roomDao.selectPhotosByAlbum(10)
+        assertEquals(select.albumId, photos.albumId)
     }
 
 }
