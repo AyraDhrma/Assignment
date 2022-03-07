@@ -24,6 +24,7 @@ import id.co.arya.kumparan.utils.showToast
 import id.co.arya.kumparan.utils.showView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,7 +43,6 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.Main) {
             fetchUser()
-            fetchPost()
         }
 
     }
@@ -88,6 +88,7 @@ class MainActivity : AppCompatActivity() {
                         binding.progressHome.hideView()
                         result.data?.let {
                             listUser = it
+                            fetchPost()
                         }
                     }
                     StatusApi.ERROR -> {
@@ -101,31 +102,33 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    suspend fun fetchPost() {
-        mainViewModel.listPostApi()
-            .observe(this@MainActivity) { result ->
-                when (result.statusApi) {
-                    StatusApi.LOADING -> {
-                        binding.progressHome.showView()
-                    }
-                    StatusApi.SUCCESS -> {
-                        binding.progressHome.hideView()
-                        result.data?.let {
-                            setupToPostRecyclerView(
-                                it,
-                                listUser
+    fun fetchPost() {
+        lifecycleScope.launch(Dispatchers.Main) {
+            mainViewModel.listPostApi()
+                .observe(this@MainActivity) { result ->
+                    when (result.statusApi) {
+                        StatusApi.LOADING -> {
+                            // Loading on user
+                        }
+                        StatusApi.SUCCESS -> {
+                            binding.progressHome.hideView()
+                            result.data?.let {
+                                setupToPostRecyclerView(
+                                    it,
+                                    listUser
+                                )
+                            }
+                        }
+                        StatusApi.ERROR -> {
+                            binding.progressHome.hideView()
+                            showToast(
+                                resources.getString(R.string.check_internet_connection),
+                                this@MainActivity
                             )
                         }
                     }
-                    StatusApi.ERROR -> {
-                        binding.progressHome.hideView()
-                        showToast(
-                            resources.getString(R.string.check_internet_connection),
-                            this@MainActivity
-                        )
-                    }
                 }
-            }
+        }
     }
 
     private fun setupToPostRecyclerView(

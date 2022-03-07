@@ -28,7 +28,7 @@
             android:text="@string/user_detail"
             android:textAlignment="center"
             android:textColor="@color/color_title"
-            android:textSize="@dimen/_24ssp"
+            android:textSize="@dimen/_20ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/close_detail_user"
             app:layout_constraintStart_toEndOf="@+id/close_detail_user"
@@ -43,7 +43,7 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:textAlignment="textStart"
             android:textColor="@color/color_title"
-            android:textSize="@dimen/_18ssp"
+            android:textSize="@dimen/_15ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,12 +58,12 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:textAlignment="textStart"
             android:textColor="@color/color_body"
-            android:textSize="@dimen/_18ssp"
+            android:textSize="@dimen/_15ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/username_detail_user"
-            tools:text="aryadharma5007@gmail.com" />
+            tools:text="Kumparan" />
 
         <TextView
             android:id="@+id/address_detail_user"
@@ -74,12 +74,12 @@
             android:justificationMode="inter_word"
             android:textAlignment="textStart"
             android:textColor="@color/color_body"
-            android:textSize="@dimen/_18ssp"
+            android:textSize="@dimen/_15ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/email_detail_user"
-            tools:text="aryadharma5007@gmail.com" />
+            tools:text="Kumparan" />
 
         <TextView
             android:id="@+id/company_detail_user"
@@ -89,12 +89,12 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:textAlignment="textStart"
             android:textColor="@color/color_body"
-            android:textSize="@dimen/_18ssp"
+            android:textSize="@dimen/_15ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/address_detail_user"
-            tools:text="aryadharma5007@gmail.com" />
+            tools:text="Kumparan" />
 
         <ProgressBar
             android:id="@+id/progress_detail_user"
@@ -110,7 +110,7 @@
             android:id="@+id/line_divider"
             android:layout_width="0dp"
             android:layout_height="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:background="@color/color_line"
             app:layout_constraintEnd_toEndOf="@+id/company_detail_user"
             app:layout_constraintStart_toStartOf="@+id/company_detail_user"

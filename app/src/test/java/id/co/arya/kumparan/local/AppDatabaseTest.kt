@@ -8,7 +8,7 @@ import androidx.test.filters.SmallTest
 import id.co.arya.kumparan.data.model.LocalPhotosModel
 import kotlinx.coroutines.runBlocking
 import org.junit.After
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -93,6 +93,39 @@ class AppDatabaseTest {
         }
         val select = roomDao.selectAll()
         assertEquals(listPhotos.size, select.size)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun emptyTablePhotos() = runBlocking {
+        val listPhotos = listOf(
+            LocalPhotosModel(
+                id = 1,
+                albumId = 1,
+                thumbnailUrl = "https://via.placeholder.com/150/92c952",
+                title = "title",
+                url = "https://via.placeholder.com/600/92c952"
+            ),
+            LocalPhotosModel(
+                id = 2,
+                albumId = 1,
+                thumbnailUrl = "https://via.placeholder.com/150/92c952",
+                title = "title",
+                url = "https://via.placeholder.com/600/92c952"
+            ),
+            LocalPhotosModel(
+                id = 3,
+                albumId = 1,
+                thumbnailUrl = "https://via.placeholder.com/150/92c952",
+                title = "title",
+                url = "https://via.placeholder.com/600/92c952"
+            )
+        )
+        listPhotos.map {
+            roomDao.emptyTables()
+        }
+        val select = roomDao.selectAll()
+        assertTrue(select.isEmpty())
     }
 
     @Test

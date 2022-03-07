@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
     android:paddingStart="@dimen/_10sdp"
-    android:paddingTop="@dimen/_10sdp"
+    android:paddingTop="@dimen/_20sdp"
     android:paddingEnd="@dimen/_10sdp">
 
     <TextView
@@ -74,8 +74,8 @@
     <View
         android:id="@+id/line_divider"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_height="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:background="@color/color_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
